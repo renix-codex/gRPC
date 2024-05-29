@@ -13,10 +13,10 @@ import (
 
 type server struct {
 	pb.UnimplementedOrgServiceServer
-	orgs map[string]*pb.OrgResponse
+	orgs map[string]*pb.OrganisationResponse
 }
 
-func (s *server) GetOrgByID(ctx context.Context, req *pb.OrgIDRequest) (*pb.OrgResponse, error) {
+func (s *server) GetOrganisationByID(ctx context.Context, req *pb.OrganisationIDRequest) (*pb.OrganisationResponse, error) {
 	org, exists := s.orgs[req.GetId()]
 	if !exists {
 		return nil, fmt.Errorf("Org with ID %s not found", req.GetId())
@@ -32,9 +32,9 @@ func main() {
 
 	s := grpc.NewServer()
 	srv := &server{
-		orgs: map[string]*pb.OrgResponse{
-			"1": {Id: "1", Name: "Org One", Meta: &pb.Meta{Address: "123 Main St", Pin: "12345"}},
-			"2": {Id: "2", Name: "Org Two", Meta: &pb.Meta{Address: "456 Elm St", Pin: "67890"}},
+		orgs: map[string]*pb.OrganisationResponse{
+			"1": {Id: "1", Name: "Organisation One", Meta: &pb.Meta{Address: "Bengaluru", Pin: "560075"}},
+			"2": {Id: "2", Name: "Organisation Two", Meta: &pb.Meta{Address: "Kochi", Pin: "689121"}},
 		},
 	}
 	pb.RegisterOrgServiceServer(s, srv)

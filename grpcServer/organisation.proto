@@ -1,19 +1,19 @@
 syntax = "proto3";
 
-package example;
+package organisation;
 
 option go_package = "/protobufs";
 
 // The greeting service definition.
 service OrgService {
-  rpc GetOrgByID (OrgIDRequest) returns (OrgResponse) {}
+  rpc GetOrganisationByID (OrganisationIDRequest) returns (OrganisationResponse) {}
 }
 
-message OrgIDRequest {
+message OrganisationIDRequest {
   string id = 1;
 }
 
-message OrgResponse {
+message OrganisationResponse {
   string id = 1;
   string name = 2;
   Meta meta = 3;
@@ -23,4 +23,3 @@ message Meta {
   string address = 1;
   string pin = 2;
 }
-

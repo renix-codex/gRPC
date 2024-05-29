@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v5.26.1
-// source: org.proto
+// source: organisation.proto
 
 package protobufs
 
@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	OrgService_GetOrgByID_FullMethodName = "/example.OrgService/GetOrgByID"
+	OrgService_GetOrganisationByID_FullMethodName = "/organisation.OrgService/GetOrganisationByID"
 )
 
 // OrgServiceClient is the client API for OrgService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrgServiceClient interface {
-	GetOrgByID(ctx context.Context, in *OrgIDRequest, opts ...grpc.CallOption) (*OrgResponse, error)
+	GetOrganisationByID(ctx context.Context, in *OrganisationIDRequest, opts ...grpc.CallOption) (*OrganisationResponse, error)
 }
 
 type orgServiceClient struct {
@@ -37,9 +37,9 @@ func NewOrgServiceClient(cc grpc.ClientConnInterface) OrgServiceClient {
 	return &orgServiceClient{cc}
 }
 
-func (c *orgServiceClient) GetOrgByID(ctx context.Context, in *OrgIDRequest, opts ...grpc.CallOption) (*OrgResponse, error) {
-	out := new(OrgResponse)
-	err := c.cc.Invoke(ctx, OrgService_GetOrgByID_FullMethodName, in, out, opts...)
+func (c *orgServiceClient) GetOrganisationByID(ctx context.Context, in *OrganisationIDRequest, opts ...grpc.CallOption) (*OrganisationResponse, error) {
+	out := new(OrganisationResponse)
+	err := c.cc.Invoke(ctx, OrgService_GetOrganisationByID_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *orgServiceClient) GetOrgByID(ctx context.Context, in *OrgIDRequest, opt
 // All implementations must embed UnimplementedOrgServiceServer
 // for forward compatibility
 type OrgServiceServer interface {
-	GetOrgByID(context.Context, *OrgIDRequest) (*OrgResponse, error)
+	GetOrganisationByID(context.Context, *OrganisationIDRequest) (*OrganisationResponse, error)
 	mustEmbedUnimplementedOrgServiceServer()
 }
 
@@ -58,8 +58,8 @@ type OrgServiceServer interface {
 type UnimplementedOrgServiceServer struct {
 }
 
-func (UnimplementedOrgServiceServer) GetOrgByID(context.Context, *OrgIDRequest) (*OrgResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrgByID not implemented")
+func (UnimplementedOrgServiceServer) GetOrganisationByID(context.Context, *OrganisationIDRequest) (*OrganisationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrganisationByID not implemented")
 }
 func (UnimplementedOrgServiceServer) mustEmbedUnimplementedOrgServiceServer() {}
 
@@ -74,20 +74,20 @@ func RegisterOrgServiceServer(s grpc.ServiceRegistrar, srv OrgServiceServer) {
 	s.RegisterService(&OrgService_ServiceDesc, srv)
 }
 
-func _OrgService_GetOrgByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(OrgIDRequest)
+func _OrgService_GetOrganisationByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrganisationIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrgServiceServer).GetOrgByID(ctx, in)
+		return srv.(OrgServiceServer).GetOrganisationByID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrgService_GetOrgByID_FullMethodName,
+		FullMethod: OrgService_GetOrganisationByID_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrgServiceServer).GetOrgByID(ctx, req.(*OrgIDRequest))
+		return srv.(OrgServiceServer).GetOrganisationByID(ctx, req.(*OrganisationIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,14 +96,14 @@ func _OrgService_GetOrgByID_Handler(srv interface{}, ctx context.Context, dec fu
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var OrgService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "example.OrgService",
+	ServiceName: "organisation.OrgService",
 	HandlerType: (*OrgServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetOrgByID",
-			Handler:    _OrgService_GetOrgByID_Handler,
+			MethodName: "GetOrganisationByID",
+			Handler:    _OrgService_GetOrganisationByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "org.proto",
+	Metadata: "organisation.proto",
 }

@@ -37,7 +37,7 @@ func main() {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
 
-		r, err := c.GetOrgByID(ctx, &pb.OrgIDRequest{Id: id})
+		r, err := c.GetOrganisationByID(ctx, &pb.OrganisationIDRequest{Id: id})
 		if err != nil {
 			log.Printf("could not get org: %v", err)
 		} else {
